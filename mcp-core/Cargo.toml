@@ -1,0 +1,16 @@
+[package]
+name = "mcp-core"
+version = "0.1.0"
+edition = "2021"
+description = "Core library implementing the Anthropic Model Context Protocol (MCP) over JSON-RPC"
+license = "MIT"
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+anyhow.workspace = true
+thiserror.workspace = true
+uuid.workspace = true
+async-trait = "0.1"

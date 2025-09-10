@@ -1,0 +1,25 @@
+# Security - Never commit these
+.misp_api_key
+*.api_key
+logs.txt
+*.log
+
+# Sample data from real MISP instance
+sample_jsons/
+
+# Build artifacts
+target/
+Cargo.lock
+
+# IDE settings (optional - you can include if you want)
+.vscode/
+.idea/
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
