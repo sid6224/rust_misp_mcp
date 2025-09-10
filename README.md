@@ -122,7 +122,7 @@ Or use command-line arguments:
 ./misp-mcp --misp-url https://misp.local --api-key YOUR_KEY --verify-tls --timeout 30
 ```
 
-## Building
+## Building - Pleas ensure Rust toolchain is installed
 
 ```bash
 cargo build --release
@@ -186,3 +186,35 @@ This Rust implementation offers significant advantages over other MCP server imp
 - **Portability**: Single binary deployment with minimal dependencies
 
 This implementation replaces previous versions with a more robust, type-safe, and production-ready Rust codebase that exactly implements the Anthropic MCP specification while providing comprehensive MISP integration.
+
+## Future Enhancements
+
+The following enhancements are planned for upcoming releases to expand deployment flexibility and integration capabilities:
+
+### Offline Self-Contained Build Distribution
+
+**Objective**: Enable deployment in air-gapped environments and restricted networks where external dependency downloads are not feasible.
+
+**Planned Features**:
+- **Vendored Dependencies**: Integration of `cargo vendor` to bundle all external crate dependencies within the source distribution
+- **Offline Build Support**: Complete build process that operates without internet connectivity using pre-vendored dependencies
+- **Multi-Architecture Binaries**: Pre-compiled static binaries for common deployment targets (x86_64-linux, aarch64-linux, x86_64-windows)
+- **Containerized Build Environment**: Docker-based build system with dependency caching for consistent offline compilation
+- **Self-Contained Packages**: Distribution packages that include all necessary components for immediate deployment
+
+**Benefits**: Enables deployment in secure environments, corporate networks with restricted internet access, and edge computing scenarios where connectivity is limited or unreliable.
+
+### Offline AI/Agent Integration
+
+**Objective**: Extend MCP server capabilities to work seamlessly with local AI models and autonomous agents running in offline environments.
+
+**Planned Features**:
+- **Local LLM Compatibility**: Protocol extensions to support integration with locally-hosted language models (Ollama, LM Studio, etc.)
+- **Agent Framework Integration**: Native support for autonomous agent frameworks that require MISP data access without cloud dependencies
+- **Embedded AI Workflows**: Built-in capabilities for common threat intelligence analysis workflows using local AI processing
+- **Context-Aware Data Formatting**: Intelligent data transformation to optimize MISP data presentation for local AI model consumption
+- **Offline Documentation Generation**: Automated generation of threat intelligence reports using local AI models and MISP data
+
+**Benefits**: Enables AI-powered threat intelligence analysis in sensitive environments where data cannot leave the organization, provides faster response times by eliminating cloud API latency, and reduces operational costs associated with cloud-based AI services.
+
+These enhancements will maintain backward compatibility while significantly expanding the deployment and integration options for organizations requiring air-gapped or locally-controlled AI-assisted threat intelligence operations.
