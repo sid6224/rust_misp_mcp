@@ -128,43 +128,20 @@ Or use command-line arguments:
 cargo build --release
 ```
 
-## Running
-
-```bash
-# Run with environment variables
-./target/release/misp-mcp
-
-# Run with command line args  
-./target/release/misp-mcp --misp-url https://misp.local --api-key YOUR_KEY
-```
 
 ## Testing
 
 The server uses stdio transport for MCP communication. You can test it using named pipes:
 
 ```bash
-# Create named pipes
-mkfifo req_pipe resp_pipe
+# 1. Test attributes_rest_search
+echo -e '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"attributes_rest_search","arguments":{"category":"Network activity","type":"ip-src","limit":5}}}' | ./target/release/misp-mcp
 
-# Start server with pipes
-./target/release/misp-mcp < req_pipe > resp_pipe &
+# 2. Test events_rest_search  
+echo -e '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"events_rest_search","arguments":{"eventinfo":"APT","limit":5}}}' | ./target/release/misp-mcp
 
-# Send initialize request
-echo '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2024-11-05","clientInfo":{"name":"test","version":"1.0"},"capabilities":{}}}' > req_pipe
-
-# Send tools/list request to see all 40 available tools
-echo '{"jsonrpc":"2.0","id":2,"method":"tools/list","params":{}}' > req_pipe
-
-# Test basic operations
-echo '{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"get_events","arguments":{}}}' > req_pipe
-echo '{"jsonrpc":"2.0","id":4,"method":"tools/call","params":{"name":"get_users","arguments":{}}}' > req_pipe
-
-# Test advanced search with filters
-echo '{"jsonrpc":"2.0","id":5,"method":"tools/call","params":{"name":"attributes_rest_search","arguments":{"category":"Network activity","type":"ip-src"}}}' > req_pipe
-echo '{"jsonrpc":"2.0","id":6,"method":"tools/call","params":{"name":"objects_rest_search","arguments":{"name":"vulnerability"}}}' > req_pipe
-
-# Read responses
-cat resp_pipe
+# 3. Test objects_rest_search
+echo -e '{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"objects_rest_search","arguments":{"name":"vulnerability","limit":5}}}' | ./target/release/misp-mcp
 ```
 
 ### Alternative Testing with Simple Client
