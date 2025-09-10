@@ -131,7 +131,7 @@ cargo build --release
 
 ## Testing
 
-The server uses stdio transport for MCP communication. You can test it using named pipes:
+The server uses stdio transport for MCP communication, and are ephimeral (session) based. To understand the concept better refer MCP_ARCHITECTURE.md file
 
 ```bash
 # 1. Test attributes_rest_search
